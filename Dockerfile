@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-ENV SIAB_USERCSS="Normal:+/etc/shellinabox/options-enabled/00+Black-on-White.css,Reverse:-/etc/shellinabox/options-enabled/00_White-On-Black.css;Colors:+/etc/shellinabox/options-enabled/01+Color-Terminal.css,Monochrome:-/etc/shellinabox/options-enabled/01_Monochrome.css" \
+ENV SIAB_USERCSS="Solarized:+/etc/shellinabox/options-enabled/solarized.css,Normal:-/etc/shellinabox/options-enabled/00+Black-on-White.css,Reverse:-/etc/shellinabox/options-enabled/00_White-On-Black.css;Colors:+/etc/shellinabox/options-enabled/01+Color-Terminal.css,Monochrome:-/etc/shellinabox/options-enabled/01_Monochrome.css" \
     SIAB_PORT=4200 \
     SIAB_ADDUSER=true \
     SIAB_USER=guest \
@@ -31,6 +31,10 @@ EXPOSE 4200
 VOLUME /etc/shellinabox /var/log/supervisor /home
 
 ADD assets/entrypoint.sh /usr/local/sbin/
+COPY solarized.css /etc/shellinabox/options-available/
+RUN chmod 777 /etc/shellinabox/options-available/solarized.css
+COPY solarized.css /etc/shellinabox/options-enabled
+RUN chmod 777 /etc/shellinabox/options-enabled/solarized.css
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["shellinabox"]
