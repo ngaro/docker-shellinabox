@@ -30,10 +30,7 @@ EXPOSE 4200
 
 COPY assets/entrypoint.sh /usr/local/sbin/
 COPY solarized.css /etc/shellinabox/options-available/
-#COPY solarized.css /etc/shellinabox/options-enabled/
 RUN ln -s /etc/shellinabox/options-available/solarized.css /etc/shellinabox/options-enabled/solarized.css
-#RUN ls -al /etc/shellinabox/options-available
-#RUN ls -al /etc/shellinabox/options-enabled
 
 VOLUME /etc/shellinabox /var/log/supervisor /home
 
