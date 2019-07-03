@@ -16,7 +16,8 @@ ENV SIAB_USERCSS="Solarized:+/etc/shellinabox/options-enabled/solarized.css,Norm
     SIAB_PKGS=none \
     SIAB_SCRIPT=none
 
-RUN apt-get update && apt-get install -y openssl curl openssh-client sudo shellinabox && \
+RUN apt-get update && \
+    apt-get install --autoremove -y openssl curl openssh-client sudo shellinabox && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     ln -sf '/etc/shellinabox/options-enabled/00+Black on White.css' \
