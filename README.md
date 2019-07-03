@@ -24,7 +24,7 @@ Current Version: **2.20**
 Pull the latest image, which is *HEAD* of the git repository.
 
 ```bash
-docker pull sspreitzer/shellinabox:latest
+docker pull garo/shellinabox:latest
 ```
 
 ## Run The Image
@@ -32,7 +32,7 @@ docker pull sspreitzer/shellinabox:latest
 For example.
 
 ```bash
-docker run -p 4200:4200 -e SIAB_PASSWORD=xyz678abc -e SIAB_SUDO=true sspreitzer/shellinabox:latest
+docker run -p 4200:4200 -e SIAB_PASSWORD=xyz678abc -e SIAB_SUDO=true garo/shellinabox:latest
 ```
 
 # Configuration
