@@ -28,13 +28,14 @@ RUN apt-get update && apt-get install -y openssl curl openssh-client sudo shelli
 
 EXPOSE 4200
 
-VOLUME /etc/shellinabox /var/log/supervisor /home
-
-ADD assets/entrypoint.sh /usr/local/sbin/
+COPY assets/entrypoint.sh /usr/local/sbin/
 COPY solarized.css /etc/shellinabox/options-available/
-RUN chmod 777 /etc/shellinabox/options-available/solarized.css
-COPY solarized.css /etc/shellinabox/options-enabled
-RUN chmod 777 /etc/shellinabox/options-enabled/solarized.css
+#COPY solarized.css /etc/shellinabox/options-enabled/
+RUN ln -s /etc/shellinabox/options-available/solarized.css /etc/shellinabox/options-enabled/solarized.css
+#RUN ls -al /etc/shellinabox/options-available
+#RUN ls -al /etc/shellinabox/options-enabled
+
+VOLUME /etc/shellinabox /var/log/supervisor /home
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["shellinabox"]
