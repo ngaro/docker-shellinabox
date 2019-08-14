@@ -53,4 +53,7 @@ docker run -p 4200:4200 -e SIAB_PASSWORD=xyz678abc -e SIAB_SUDO=true garo/shelli
  - **SIAB_SERVICE** Service strings to use for shellinabox, separated by whitespace. Defaults to local logins */:LOGIN*.
  - **SIAB_PKGS** Packages to be installed before shellinabox starts. Defaults to none.
  - **SIAB_SCRIPT** Script to download and run before shellinabox start. SSL verification is disabled. Defaults to none.
+ - **SIAB_CERTS** Folder for SSL Certificate. Defaults to /var/lib/shellinabox
+ - **SIAB_CERTS_WAIT** Whether to wait with starting until a certificate is found. Defaults to false.
+ - **SIAB_LOCAL** Whether to only listen to the loopback interface. Defaults to false.
 

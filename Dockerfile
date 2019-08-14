@@ -14,7 +14,10 @@ ENV SIAB_USERCSS="Solarized:+/etc/shellinabox/options-enabled/solarized.css,Norm
     SIAB_SSL=true \
     SIAB_SERVICE=/:LOGIN \
     SIAB_PKGS=none \
-    SIAB_SCRIPT=none
+    SIAB_SCRIPT=none \
+    SIAB_CERTS=/var/lib/shellinabox \
+    SIAB_CERTS_WAIT=false \
+    SIAB_LOCAL=false
 
 RUN apt-get update && \
     apt-get install --autoremove -y sudo git libssl-dev libpam0g-dev zlib1g-dev dh-autoreconf && \
