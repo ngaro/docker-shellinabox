@@ -36,6 +36,10 @@ if [ "$SIAB_PKGS" != "none" ]; then
 	set -e
 fi
 
+if [ "$SIAB_MESSAGES_ORIGIN" != "none" ]; then
+	COMMAND+=" -m '$SIAB_MESSAGES_ORIGIN'"
+fi
+
 if [ "$SIAB_SSL" != "true" ]; then
 	COMMAND+=" -t"
 fi
