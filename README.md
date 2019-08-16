@@ -1,7 +1,6 @@
 # Table Of Contents
 
  - [Introduction](#introduction)
- - [Version](#version)
  - [Usage](#usage)
      - [Pull The Image](#pull-the-image)
      - [Run The Image](#run-the-image)
@@ -10,27 +9,26 @@
  - [References](#references)
 
 # Introduction
-
-Dockerfile to build a shellinabox container image.
-
-# Version
-
-Current Version: **2.20**
+Shell In A Box is a web server that is used to get a web based login shell on the server (or in this case, the container).<br><br>
+It can export arbitrary command line tools to a web based terminal emulator. This emulator is accessible to any JavaScript and CSS enabled web browser and does not require any additional browser plugins.<br>
+More details are available in the <a href="https://github.com/shellinabox/shellinabox/wiki/shellinaboxd_man">manual page</a>.
 
 # Usage
 
 ## Pull The Image
 
-Pull the latest image, which is *HEAD* of the git repository.
+Choose a tag:
+ - *latest*: Current LTS Ubuntu, Shell In A Box package from the repositories is used
+ - *dev*: Current LTS Ubuntu, Shell In A Box build from the *HEAD* of <a href="https://github.com/ngaro/docker-shellinabox/tree/dev">the development branch</a>
 
+and pull it:<br>
 ```bash
 docker pull garo/shellinabox:latest
 ```
 
 ## Run The Image
 
-For example.
-
+For example:<br>
 ```bash
 docker run -p 4200:4200 -e SIAB_PASSWORD=xyz678abc -e SIAB_SUDO=true garo/shellinabox:latest
 ```
@@ -55,9 +53,4 @@ docker run -p 4200:4200 -e SIAB_PASSWORD=xyz678abc -e SIAB_SUDO=true garo/shelli
  - **SIAB_SERVICE** Service strings to use for shellinabox, separated by whitespace. Defaults to local logins */:LOGIN*.
  - **SIAB_PKGS** Packages to be installed before shellinabox starts. Defaults to none.
  - **SIAB_SCRIPT** Script to download and run before shellinabox start. SSL verification is disabled. Defaults to none.
-
-# References
-
- * https://github.com/sameersbn/docker-gitlab/blob/master/README.md
- * https://github.com/spali/docker-shellinabox
 
