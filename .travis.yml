@@ -1,0 +1,14 @@
+sudo: required
+
+services:
+  - docker
+
+script:
+  - docker build -t garo/shellinabox:dev .
+  - docker images
+
+deploy:
+  provider: script
+  script: bash docker_push.sh
+  on:
+    branch: dev
