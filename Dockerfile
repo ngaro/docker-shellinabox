@@ -21,16 +21,20 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN git clone https://github.com/shellinabox/shellinabox.git && cd shellinabox && git checkout master && \
+ARG repouser=shellinabox
+ARG reponame=shellinabox
+ARG repobranch=master
+
+RUN git clone https://github.com/$repouser/$reponame.git  && cd $reponame && git checkout $repobranch && \
     autoreconf -i && ./configure && make && make install
 
 RUN mkdir -p /etc/shellinabox/options-available /etc/shellinabox/options-enabled
-RUN cp /shellinabox/debian/README.available /etc/shellinabox/options-available/README
-RUN cp /shellinabox/debian/README.enabled /etc/shellinabox/options-enabled/README
-RUN cp /shellinabox/shellinabox/black-on-white.css '/etc/shellinabox/options-available/00+Black on White.css'
-RUN cp /shellinabox/shellinabox/white-on-black.css '/etc/shellinabox/options-available/00_White On Black.css'
-RUN cp /shellinabox/shellinabox/color.css '/etc/shellinabox/options-available/01+Color Terminal.css'
-RUN cp /shellinabox/shellinabox/monochrome.css '/etc/shellinabox/options-available/01_Monochrome.css'
+RUN cp /$reponame/debian/README.available /etc/shellinabox/options-available/README
+RUN cp /$reponame/debian/README.enabled /etc/shellinabox/options-enabled/README
+RUN cp /$reponame/shellinabox/black-on-white.css '/etc/shellinabox/options-available/00+Black on White.css'
+RUN cp /$reponame/shellinabox/white-on-black.css '/etc/shellinabox/options-available/00_White On Black.css'
+RUN cp /$reponame/shellinabox/color.css '/etc/shellinabox/options-available/01+Color Terminal.css'
+RUN cp /$reponame/shellinabox/monochrome.css '/etc/shellinabox/options-available/01_Monochrome.css'
 COPY solarized.css /etc/shellinabox/options-available/
 RUN cd /etc/shellinabox/options-enabled; ln -s ../options-available/*.css .
 RUN ln -sf '/etc/shellinabox/options-enabled/00+Black on White.css' \
