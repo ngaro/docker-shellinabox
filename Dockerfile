@@ -17,21 +17,35 @@ ENV SIAB_USERCSS="Solarized:+/etc/shellinabox/options-enabled/solarized.css,Norm
     SIAB_SCRIPT=none
 
 RUN apt-get update && \
-    apt-get install --autoremove -y openssl curl openssh-client sudo shellinabox && \
+    apt-get install --autoremove -y sudo git libssl-dev libpam0g-dev zlib1g-dev dh-autoreconf && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    ln -sf '/etc/shellinabox/options-enabled/00+Black on White.css' \
-      /etc/shellinabox/options-enabled/00+Black-on-White.css && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN git clone https://github.com/shellinabox/shellinabox.git && cd shellinabox && git checkout master && \
+    autoreconf -i && ./configure && make && make install
+
+RUN mkdir -p /etc/shellinabox/options-available /etc/shellinabox/options-enabled
+RUN cp /shellinabox/debian/README.available /etc/shellinabox/options-available/README
+RUN cp /shellinabox/debian/README.enabled /etc/shellinabox/options-enabled/README
+RUN cp /shellinabox/shellinabox/black-on-white.css '/etc/shellinabox/options-available/00+Black on White.css'
+RUN cp /shellinabox/shellinabox/white-on-black.css '/etc/shellinabox/options-available/00_White On Black.css'
+RUN cp /shellinabox/shellinabox/color.css '/etc/shellinabox/options-available/01+Color Terminal.css'
+RUN cp /shellinabox/shellinabox/monochrome.css '/etc/shellinabox/options-available/01_Monochrome.css'
+COPY solarized.css /etc/shellinabox/options-available/
+RUN cd /etc/shellinabox/options-enabled; ln -s ../options-available/*.css .
+RUN ln -sf '/etc/shellinabox/options-enabled/00+Black on White.css' \
+       /etc/shellinabox/options-enabled/00+Black-on-White.css && \
     ln -sf '/etc/shellinabox/options-enabled/00_White On Black.css' \
       /etc/shellinabox/options-enabled/00_White-On-Black.css && \
     ln -sf '/etc/shellinabox/options-enabled/01+Color Terminal.css' \
       /etc/shellinabox/options-enabled/01+Color-Terminal.css
 
+RUN adduser --disabled-password  --quiet --system -home /var/lib/shellinabox --gecos "Shell In A Box" --group shellinabox
+RUN chown shellinabox:shellinabox /var/lib/shellinabox
+
 EXPOSE 4200
 
 COPY assets/entrypoint.sh /usr/local/sbin/
-COPY solarized.css /etc/shellinabox/options-available/
-RUN ln -s /etc/shellinabox/options-available/solarized.css /etc/shellinabox/options-enabled/solarized.css
 
 VOLUME /etc/shellinabox /var/log/supervisor /home
 
