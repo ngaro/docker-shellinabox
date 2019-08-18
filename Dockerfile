@@ -29,27 +29,24 @@ ARG repouser=shellinabox
 ARG reponame=shellinabox
 ARG repobranch=master
 
-RUN git clone https://github.com/$repouser/$reponame.git  && cd $reponame && git checkout $repobranch && \
+RUN git clone https://github.com/$repouser/$reponame.git && \
+    cd $reponame && git checkout $repobranch && \
     autoreconf -i && ./configure && make && make install
 
-RUN mkdir -p /etc/shellinabox/options-available /etc/shellinabox/options-enabled
-RUN cp /$reponame/debian/README.available /etc/shellinabox/options-available/README
-RUN cp /$reponame/debian/README.enabled /etc/shellinabox/options-enabled/README
-RUN cp /$reponame/shellinabox/black-on-white.css '/etc/shellinabox/options-available/00+Black on White.css'
-RUN cp /$reponame/shellinabox/white-on-black.css '/etc/shellinabox/options-available/00_White On Black.css'
-RUN cp /$reponame/shellinabox/color.css '/etc/shellinabox/options-available/01+Color Terminal.css'
-RUN cp /$reponame/shellinabox/monochrome.css '/etc/shellinabox/options-available/01_Monochrome.css'
+RUN mkdir -p /etc/shellinabox/options-available /etc/shellinabox/options-enabled && \
+    cp /$reponame/debian/README.available /etc/shellinabox/options-available/README && \
+    cp /$reponame/debian/README.enabled /etc/shellinabox/options-enabled/README && \
+    cp /$reponame/shellinabox/black-on-white.css '/etc/shellinabox/options-available/00+Black on White.css' && \
+    cp /$reponame/shellinabox/white-on-black.css '/etc/shellinabox/options-available/00_White On Black.css' && \
+    cp /$reponame/shellinabox/color.css '/etc/shellinabox/options-available/01+Color Terminal.css' && \
+    cp /$reponame/shellinabox/monochrome.css '/etc/shellinabox/options-available/01_Monochrome.css'
 COPY solarized.css /etc/shellinabox/options-available/
-RUN cd /etc/shellinabox/options-enabled; ln -s ../options-available/*.css .
-RUN ln -sf '/etc/shellinabox/options-enabled/00+Black on White.css' \
-       /etc/shellinabox/options-enabled/00+Black-on-White.css && \
-    ln -sf '/etc/shellinabox/options-enabled/00_White On Black.css' \
-      /etc/shellinabox/options-enabled/00_White-On-Black.css && \
-    ln -sf '/etc/shellinabox/options-enabled/01+Color Terminal.css' \
-      /etc/shellinabox/options-enabled/01+Color-Terminal.css
-
-RUN adduser --disabled-password  --quiet --system -home /var/lib/shellinabox --gecos "Shell In A Box" --group shellinabox
-RUN chown shellinabox:shellinabox /var/lib/shellinabox
+RUN cd /etc/shellinabox/options-enabled; ln -s ../options-available/*.css . && \
+    ln -sf '/etc/shellinabox/options-enabled/00+Black on White.css' /etc/shellinabox/options-enabled/00+Black-on-White.css && \
+    ln -sf '/etc/shellinabox/options-enabled/00_White On Black.css' /etc/shellinabox/options-enabled/00_White-On-Black.css && \
+    ln -sf '/etc/shellinabox/options-enabled/01+Color Terminal.css' /etc/shellinabox/options-enabled/01+Color-Terminal.css && \
+    adduser --disabled-password  --quiet --system -home /var/lib/shellinabox --gecos "Shell In A Box" --group shellinabox && \
+    chown shellinabox:shellinabox /var/lib/shellinabox
 
 EXPOSE 4200
 
