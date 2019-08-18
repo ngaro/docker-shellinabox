@@ -25,9 +25,9 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ARG repouser=shellinabox
+ARG repouser=ngaro
 ARG reponame=shellinabox
-ARG repobranch=master
+ARG repobranch=dev
 
 RUN git clone https://github.com/$repouser/$reponame.git && \
     cd $reponame && git checkout $repobranch && \
