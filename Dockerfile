@@ -31,7 +31,7 @@ ARG repobranch=master
 
 RUN git clone https://github.com/$repouser/$reponame.git && \
     cd $reponame && git checkout $repobranch && \
-    autoreconf -i && ./configure && make && make install
+    autoreconf -i && ./configure --enable-selfsigned-cert && make && make install
 
 RUN mkdir -p /etc/shellinabox/options-available /etc/shellinabox/options-enabled && \
     cp /$reponame/debian/README.available /etc/shellinabox/options-available/README && \
