@@ -19,8 +19,11 @@ ENV SIAB_USERCSS="Solarized:+/etc/shellinabox/options-enabled/solarized.css,Norm
     SIAB_CERTS_WAIT=false \
     SIAB_MESSAGES_ORIGIN=none
 
+ARG debug
+
 RUN apt-get update && \
     apt-get install --autoremove -y sudo git libssl-dev libpam0g-dev zlib1g-dev dh-autoreconf && \
+    if [ ! -z "$debug" ] ; then apt-get install --autoremove -y valgrind gdb ; fi && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
