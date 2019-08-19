@@ -30,15 +30,15 @@ ARG repobranch=dev
 
 RUN git clone https://github.com/$repouser/$reponame.git && \
     cd $reponame && git checkout $repobranch && \
-    autoreconf -i && ./configure --enable-selfsigned-cert && make && make install
-
-RUN mkdir -p /etc/shellinabox/options-available /etc/shellinabox/options-enabled && \
+    autoreconf -i && ./configure --prefix=/usr --enable-selfsigned-cert && make && make install && \
+    mkdir -p /etc/shellinabox/options-available /etc/shellinabox/options-enabled && \
     cp /$reponame/debian/README.available /etc/shellinabox/options-available/README && \
     cp /$reponame/debian/README.enabled /etc/shellinabox/options-enabled/README && \
     cp /$reponame/shellinabox/black-on-white.css '/etc/shellinabox/options-available/00+Black on White.css' && \
     cp /$reponame/shellinabox/white-on-black.css '/etc/shellinabox/options-available/00_White On Black.css' && \
     cp /$reponame/shellinabox/color.css '/etc/shellinabox/options-available/01+Color Terminal.css' && \
-    cp /$reponame/shellinabox/monochrome.css '/etc/shellinabox/options-available/01_Monochrome.css'
+    cp /$reponame/shellinabox/monochrome.css '/etc/shellinabox/options-available/01_Monochrome.css' && \
+    rm -rf ../$reponame
 COPY solarized.css /etc/shellinabox/options-available/
 RUN cd /etc/shellinabox/options-enabled; ln -s ../options-available/*.css . && \
     ln -sf '/etc/shellinabox/options-enabled/00+Black on White.css' /etc/shellinabox/options-enabled/00+Black-on-White.css && \
@@ -49,7 +49,7 @@ RUN cd /etc/shellinabox/options-enabled; ln -s ../options-available/*.css . && \
 
 EXPOSE 4200
 
-COPY assets/entrypoint.sh /usr/local/sbin/
+COPY assets/entrypoint.sh /usr/sbin/
 
 VOLUME /etc/shellinabox /var/log/supervisor /home
 

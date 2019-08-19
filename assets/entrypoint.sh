@@ -21,7 +21,7 @@ if [ "$SIAB_PORT_FROM_PORT" == "true" ]; then
 	SIAB_PORT=$PORT
 fi
 
-COMMAND="/usr/local/bin/shellinaboxd --debug --no-beep --disable-peer-check -g shellinabox -c ${SIAB_CERTS} -p ${SIAB_PORT} --user-css ${SIAB_USERCSS}"
+COMMAND="/usr/bin/shellinaboxd --debug --no-beep --disable-peer-check -g shellinabox -c ${SIAB_CERTS} -p ${SIAB_PORT} --user-css ${SIAB_USERCSS}"
 
 if [ "$SIAB_PKGS" != "none" ]; then
 	set +e
