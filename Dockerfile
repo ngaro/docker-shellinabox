@@ -17,7 +17,6 @@ ENV SIAB_USERCSS="Solarized:+/etc/shellinabox/options-enabled/solarized.css,Norm
     SIAB_SCRIPT=none \
     SIAB_CERTS=/var/lib/shellinabox \
     SIAB_CERTS_WAIT=false \
-    SIAB_LOCAL=false \
     SIAB_MESSAGES_ORIGIN=none
 
 RUN apt-get update && \
