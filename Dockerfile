@@ -29,7 +29,7 @@ RUN apt-get update && \
 
 ARG repouser=ngaro
 ARG reponame=shellinabox
-ARG repobranch=dev
+ARG repobranch=ua
 
 RUN git clone https://github.com/$repouser/$reponame.git && \
     cd $reponame && git checkout $repobranch && \
